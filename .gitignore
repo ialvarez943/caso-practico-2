@@ -1,0 +1,4 @@
+.vscode
+
+# Terraform
+terraform.tfvars
