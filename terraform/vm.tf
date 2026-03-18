@@ -9,7 +9,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   size                = var.vm_size
   admin_username      = var.vm_admin_username
   network_interface_ids = [
-    azurerm_network_interface.vm.id
+    azurerm_network_interface.nic.id
   ]
   disable_password_authentication = true
 
@@ -21,7 +21,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
-    name                 = var.var.vm_admin_username
+    name                 = var.vm_admin_username
   }
 
   source_image_reference {

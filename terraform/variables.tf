@@ -18,8 +18,10 @@ variable "subscription_id" {
 
 variable "tags" {
   description = "Common tags"
-  type        = string
-  default     = "casopractico2"
+  type        = map(string)
+  default     = {
+    environment = "casopractico2"
+  }
 }
 
 variable "vm_name" {
@@ -44,4 +46,22 @@ variable "vm_disk_name" {
   description = "Virtual machine Linux storage disk name"
   type        = string
   default     = "vm-disk-casopractico2"
+}
+
+variable "virtual_network_name" {
+  description = "Virtual Network name"
+  type        = string
+  default     = "vn-casopractico2"
+}
+
+variable "subnet_name" {
+  description = "Subnet name"
+  type        = string
+  default     = "subnet-casopractico2"
+}
+
+variable "public_ip_name" {
+  description = "Public ip name"
+  type        = string
+  default     = "pip-casopractico2"
 }
