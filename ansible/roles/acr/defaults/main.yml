@@ -2,6 +2,6 @@ images:
   - name: nginx
     source: docker.io/library/nginx:latest
   - name: redis
-    source: docker.io/jsosa15/redis:latest
+    source: docker.io/jsosa15/redis:6.0.8
   - name: frontend
     source: docker.io/jsosa15/azure-vote-front:v1
