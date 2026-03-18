@@ -21,3 +21,27 @@ variable "tags" {
   type        = string
   default     = "casopractico2"
 }
+
+variable "vm_name" {
+  description = "Virtual machine Linux name"
+  type        = string
+  default     = "vm-casopractico2"
+}
+
+variable "vm_size" {
+  description = "Tamaño de la VM Linux"
+  type        = string
+  default     = "Standard_B2s"
+}
+
+variable "vm_admin_username" {
+  description = "Usuario administrador de la VM"
+  type        = string
+  default     = "azureuser"
+}
+
+variable "vm_disk_name" {
+  description = "Virtual machine Linux storage disk name"
+  type        = string
+  default     = "vm-disk-casopractico2"
+}
