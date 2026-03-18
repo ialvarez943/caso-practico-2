@@ -1,3 +1,7 @@
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+}
+
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = var.vm_name
   location            = azurerm_resource_group.rg.location
