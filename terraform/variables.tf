@@ -33,7 +33,7 @@ variable "vm_name" {
 variable "vm_size" {
   description = "Tamaño de la VM Linux"
   type        = string
-  default     = "Standard_D2s_v6"
+  default     = "Standard_D2s_v3"
 }
 
 variable "vm_admin_username" {
