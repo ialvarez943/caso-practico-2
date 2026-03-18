@@ -1,0 +1,25 @@
+---
+- name: ACR login
+  containers.podman.podman_login:
+    registry: "{{ acr_login_server }}"
+    username: "{{ acr_username }}"
+    password: "{{ acr_password }}"
+
+- name: Pull images from repositories
+  containers.podman.podman_image:
+    name: "{{ item.name }}"
+    state: present
+  loop: "{{ images }}"
+
+- name: Tag images
+  containers.podman.podman_tag:
+    image: "{{ item.source }}"
+    target_names:
+      - "{{ acr_login_server }}/{{ item.name }}:{{ acr_image_tag }}"
+  loop: "{{ images }}"
+
+- name: Push images to ACR
+  containers.podman.podman_image:
+    name: "{{ acr_login_server }}/{{ item.name }}:{{ acr_image_tag }}"
+    push: true
+  loop: "{{ images }}"

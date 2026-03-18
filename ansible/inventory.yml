@@ -1,0 +1,25 @@
+all:
+  vars:
+    acr_login_server: ${acr_login_server}
+    acr_username: ${acr_admin_username}
+    acr_password: ${acr_admin_password}
+    acr_image_tag: casopractico2
+    kubeconfig_path: ${kubeconfig_path}
+
+  children:
+    vm:
+      hosts:
+        vm1:
+          ansible_host: ${vm_public_ip}
+          ansible_user: azureuser
+          ansible_ssh_private_key_file: ${ssh_private_key_path}
+
+    acr:
+      hosts:
+        localhost:
+          ansible_connection: local
+
+    aks:
+      hosts:
+        localhost:
+          ansible_connection: local

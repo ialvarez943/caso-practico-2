@@ -32,3 +32,9 @@ resource "azurerm_network_security_rule" "http" {
   resource_group_name         = azurerm_resource_group.rg.name
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
+
+resource "local_file" "private_key" {
+  content         = tls_private_key.ssh_key.private_key_pem
+  filename        = "${path.module}/private_key.pem"
+  file_permission = "0600"
+}
