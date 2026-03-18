@@ -95,3 +95,9 @@ variable "admin_username" {
   type        = string
   default     = "azureuser"
 }
+
+variable "web_server_port" {
+  description = "Puerto HTTP publicado por el contenedor web"
+  type        = number
+  default     = 8080
+}
