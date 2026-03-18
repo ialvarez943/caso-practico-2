@@ -2,3 +2,10 @@
 
 # Terraform
 terraform.tfvars
+*.tfstate
+.terraform.lock.hcl
+
+# Ansible
+*/secrets.yml
+ansible/kubeconfig
+id_rsa.pem
