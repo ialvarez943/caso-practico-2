@@ -5,7 +5,7 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  default     = "spaincentral"
+  default     = "Norway East"
   description = "Azure region where resources will be deployed"
   type        = string
 }
