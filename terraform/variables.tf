@@ -65,3 +65,33 @@ variable "public_ip_name" {
   type        = string
   default     = "pip-casopractico2"
 }
+
+variable "acr_name" {
+  description = "Unique name of Azure Container Registry"
+  type        = string
+  default     = "acrcasopractico2ialvarez943"
+}
+
+variable "aks_name" {
+  description = "AKS cluster name"
+  type        = string
+  default     = "aks-casopractico2"
+}
+
+variable "aks_dns_prefix" {
+  description = "AKS DNS prefix"
+  type        = string
+  default     = "aks-casopractico2"
+}
+
+variable "aks_vm_size" {
+  description = "Tamaño de VM para nodos AKS"
+  type        = string
+  default     = "Standard_D2s_v3"
+}
+
+variable "admin_username" {
+  description = "VM user admin"
+  type        = string
+  default     = "azureuser"
+}
