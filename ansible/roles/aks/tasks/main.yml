@@ -3,9 +3,8 @@
     path: "{{ kubeconfig_path }}"
   register: kubeconfig_file
 
-- name: Fallar si no existe el kubeconfig
+- name: Fail if kubeconfig doesn`t exist
   ansible.builtin.fail:
-    msg: "No existe {{ kubeconfig_path }}. Exporta la salida kube_config de Terraform a ese fichero antes de ejecutar este rol."
   when: not kubeconfig_file.stat.exists
 
 - name: Create namespace

@@ -29,3 +29,9 @@ output "acr_admin_password" {
   value       = azurerm_container_registry.acr.admin_password
   sensitive   = true
 }
+
+output "kube_config" {
+  description = "Kubeconfig de AKS para usar desde Ansible"
+  value       = azurerm_kubernetes_cluster.this.kube_config_raw
+  sensitive   = true
+}
