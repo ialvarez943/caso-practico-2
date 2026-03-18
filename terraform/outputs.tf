@@ -32,6 +32,6 @@ output "acr_admin_password" {
 
 output "kube_config" {
   description = "Kubeconfig de AKS para usar desde Ansible"
-  value       = azurerm_kubernetes_cluster.this.kube_config_raw
+  value       = azurerm_kubernetes_cluster.aks.kube_config_raw
   sensitive   = true
 }
