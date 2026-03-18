@@ -1,0 +1,92 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ app.backend.name }}
+  namespace: {{ app_namespace }}
+spec:
+  replicas: {{ app.backend.replicas }}
+  selector:
+    matchLabels:
+      app: {{ app.backend.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ app.backend.name }}
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      imagePullSecrets:
+        - name: acr-auth
+      containers:
+        - name: {{ app.backend.name }}
+          image: {{ acr_login_server }}/{{ backend_image_target }}
+          env:
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "yes"
+          ports:
+            - containerPort: {{ app.backend.port }}
+          volumeMounts:
+            - name: redis-storage
+              mountPath: /bitnami/redis/data
+      volumes:
+        - name: redis-storage
+          persistentVolumeClaim:
+            claimName: redis-data
+      securityContext:
+        fsGroup: 1001 
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ app.backend.name }}
+  namespace: {{ app_namespace }}
+spec:
+  selector:
+    app: {{ app.backend.name }}
+  ports:
+    - port: {{ app.backend.port }}
+      targetPort: {{ app.backend.port }}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ app.frontend.name }}
+  namespace: {{ app_namespace }}
+spec:
+  replicas: {{ app.frontend.replicas }}
+  selector:
+    matchLabels:
+      app: {{ app.frontend.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ app.frontend.name }}
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      imagePullSecrets:
+        - name: acr-auth
+      containers:
+        - name: {{ app.frontend.name }}
+          image: {{ acr_login_server }}/{{ frontend_image_target }}
+          env:
+            - name: REDIS
+              value: {{ app.backend.name }}
+          ports:
+            - containerPort: {{ app.frontend.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ app.frontend.name }}
+  namespace: {{ app_namespace }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{ app.frontend.name }}
+  ports:
+    - port: {{ app.frontend.port }}
+      targetPort: {{ app.frontend.port }}

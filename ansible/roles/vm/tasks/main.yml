@@ -1,0 +1,39 @@
+---
+- name: Update apt system packages
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install Podman 
+  ansible.builtin.apt:
+    name: podman
+    state: present
+    update_cache: yes
+
+- name: Create folder for web content
+  ansible.builtin.file:
+    path: "{{ web_content_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Publish custom index.html
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ web_content_dir }}/index.html"
+    mode: "0644"
+
+- name: ACR Login from podman
+  containers.podman.podman_login:
+    registry: "{{ acr_login_server }}"
+    username: "{{ acr_username }}"
+    password: "{{ acr_password }}"
+
+- name: Run podman container with ACR image
+  containers.podman.podman_container:
+    name: "{{ container_name }}"
+    image: "{{ acr_login_server }}/{{ image_name }}:{{ acr_image_tag }}"
+    state: started
+    ports:
+      - "{{ container_port }}:80"
+    volume:
+      - "{{ web_content_dir }}:/usr/share/nginx/html"
+    restart_policy: always

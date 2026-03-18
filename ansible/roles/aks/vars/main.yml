@@ -1,0 +1,9 @@
+app:
+  backend:
+    name: backend
+    replicas: 1
+    port: 6379
+  frontend:
+    name: frontend
+    replicas: 1
+    port: 80

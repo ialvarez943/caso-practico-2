@@ -1,0 +1,28 @@
+---
+- name: Check if python 3 is intalled
+  apt:
+    name: python3
+    state: present
+
+- name: Check if python3-apt is intalled
+  apt:
+    name: python3-apt
+    state: present
+
+- name: Verify python3 installation
+  command: python3 --version
+  register: python_version
+  changed_when: false
+
+- name: Print python 3 version 
+  debug:
+    msg: "Python version is {{ python_version.stdout }}"
+
+- name: Verify python3-apt installation
+  command: python3 -c "import apt; print('python3-apt is installed')"
+  register: apt_check
+  changed_when: false
+
+- name: Print python3-apt installation 
+  debug:
+    msg: "{{ apt_check.stdout }}"
