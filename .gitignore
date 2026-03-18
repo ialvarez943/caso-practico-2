@@ -8,4 +8,4 @@ terraform.tfvars
 # Ansible
 */secrets.yml
 ansible/kubeconfig
-id_rsa.pem
+private_key.pem
