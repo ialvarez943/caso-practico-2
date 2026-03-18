@@ -7,8 +7,9 @@
 
 - name: Pull images from repositories
   containers.podman.podman_image:
-    name: "{{ item.name }}"
+    name: "{{ item.source }}"
     state: present
+    pull: true
   loop: "{{ images }}"
 
 - name: Tag images
