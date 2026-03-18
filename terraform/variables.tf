@@ -1,5 +1,5 @@
 variable "resource_group_name" {
-  default     = "rg-cp2"
+  default     = "rg-casopractico2"
   description = "Name from resource group"
   type        = string
 }
