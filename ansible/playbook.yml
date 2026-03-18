@@ -1,0 +1,25 @@
+---
+- name: Get necessary images and push in ACR
+  hosts: localhost
+  gather_facts: true
+  vars_files:
+    - secrets.yml
+  roles:
+    - acr
+
+- name: Configure VM and deploy the web server with Podman and Nginx
+  hosts: vm
+  become: true
+  gather_facts: true
+  vars_files:
+    - secrets.yml
+  roles:
+    - vm
+
+- name: Deploy persistent app in AKS
+  hosts: localhost
+  gather_facts: true
+  vars_files:
+    - secrets.yml
+  roles:
+    - aks
